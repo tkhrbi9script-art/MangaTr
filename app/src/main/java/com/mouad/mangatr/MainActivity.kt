@@ -107,17 +107,17 @@ class MainActivity : AppCompatActivity() {
             CookieManager.getInstance().setAcceptThirdPartyCookies(this, true)
             webViewClient = object : WebViewClient() {
                 override fun onPageStarted(v: WebView?, url: String?, f: Bitmap?) {
-                    overlay.removeAllViews()
+                    this@MainActivity.overlay.removeAllViews()
                     if (url != null) urlBox.setText(url)
                 }
             }
             webChromeClient = WebChromeClient()
-            setOnScrollChangeListener { _, _, _, _, _ -> overlay.removeAllViews() }
+            setOnScrollChangeListener { _, _, _, _, _ -> this@MainActivity.overlay.removeAllViews() }
         }
         overlay = FrameLayout(this)
         val stack = FrameLayout(this).apply {
             addView(web, FrameLayout.LayoutParams(-1, -1))
-            addView(overlay, FrameLayout.LayoutParams(-1, -1))
+            addView(this@MainActivity.overlay, FrameLayout.LayoutParams(-1, -1)) 
         }
         status = TextView(this).apply { textSize = 12f; setPadding(dp(8), dp(2), dp(8), dp(2)) }
 
